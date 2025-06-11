@@ -9,6 +9,35 @@
 
 ## Project Structure
 
+```bash
+                          +------------------+
+                          |  API Gateway     |  ← Swagger-enabled entry point
+                          +--------+---------+
+                                   |
+                                   ▼
+          ┌────────────────────────────────────────────────────┐
+          |                NestJS Application                  |
+          | (Modular Monolith with Internal Event Bus/Queue)   |
+          └────────────────────────────────────────────────────┘
+             │           │             │                │
+             ▼           ▼             ▼                ▼
+        +--------+   +--------+   +-------------+   +------------+
+        | Wallet |   | Bills  |   | Transactions|   | Reversal   |
+        | Module |   | Module |   |  Module     |   | Module     |
+        +--------+   +--------+   +-------------+   +------------+
+             │           │             │                │
+             ▼           ▼             ▼                ▼
+         Wallet DB   External API   Transaction DB   Event Queue (Mock)
+
+                                        ▲
+                                        │
+                        +---------------+------------------+
+                        |        Event Handler Module       |
+                        | (Listens for "TransactionFailed", |
+                        | "BillProcessed", etc.)            |
+                        +-----------------------------------+
+```
+
 ```
 ├── package-lock.json
 ├── package.json
