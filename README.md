@@ -1,27 +1,5 @@
 # Bill Vending Backend Service
 
-A robust NestJS-based backend service for bill vending with wallet management, asynchronous processing, and comprehensive error handling.
-
-## Architecture Overview
-
-### System Design
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   API Gateway   │───▶│  Wallet Service │───▶│   Database      │
-└─────────────────┘    └─────────────────┘    │  (PostgreSQL)   │
-         │                       │             └─────────────────┘
-         ▼                       ▼
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│  Bill Service   │───▶│  Queue Service  │───▶│  Event Handler  │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-         │                                              │
-         ▼                                              ▼
-┌─────────────────┐                          ┌─────────────────┐
-│ External Bill   │                          │  Reversal       │
-│ Payment API     │                          │  Service        │
-└─────────────────┘                          └─────────────────┘
-```
-
 ### Key Components
 - **Wallet Management**: Fund, balance check, debit operations
 - **Bill Vending**: Async transaction processing with external API calls
